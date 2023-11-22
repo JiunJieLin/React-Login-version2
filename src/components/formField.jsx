@@ -19,7 +19,7 @@ const FormField = ({
         onChange={onChange}
         className="border-2 p-2 rounded-lg w-full mb-4"
       />
-      {errorMsg && <p className="mt-2 text-sm text-red-600">{errorMsg}</p>}
+      {errorMsg && <p className="text-sm text-red-600">{errorMsg}</p>}
     </div>
   );
 };
