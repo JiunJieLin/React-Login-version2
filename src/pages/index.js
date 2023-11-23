@@ -1,7 +1,10 @@
 import StepOne from "@/components/stepOne";
 import Button from "@/components/button";
 import SideInfo from "@/components/sideInfo";
+import StepTwo from "@/components/stepTwo";
+import StepThree from "@/components/stepThree";
 import { useRef } from "react";
+import Summary from "@/components/summary";
 const Home = () => {
   const formRef = useRef(null);
   const handleNextClick = () => {
@@ -18,7 +21,9 @@ const Home = () => {
         <SideInfo />
       </div>
       <div className="px-20 pt-20 pb-5 border-2 w-full flex flex-col justify-between">
-        <StepOne ref={formRef} />
+        {/* <StepOne ref={formRef} /> */}
+        {/* <StepTwo /> */}
+        <StepThree />
         <Button handleNextClick={handleNextClick} />
       </div>
     </div>
