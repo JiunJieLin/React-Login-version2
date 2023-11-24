@@ -1,7 +1,10 @@
 import FormField from "@/components/formField";
 import { useState, forwardRef } from "react";
 
-const StepOne = forwardRef(function StepOne({ setCurrentActive }, ref) {
+const StepOne = forwardRef(function StepOne(
+  { setCurrentActive, setPrevEnteredValue, setStep1Contact, prevEnteredValue },
+  ref
+) {
   const [formState, setFormState] = useState({
     name: {
       value: "",
@@ -37,6 +40,7 @@ const StepOne = forwardRef(function StepOne({ setCurrentActive }, ref) {
           : "電話號碼需為 10 碼且開頭為 09",
     },
   });
+
   const validateField = (name, value) => {
     const fieldState = formState[name];
 
@@ -59,6 +63,10 @@ const StepOne = forwardRef(function StepOne({ setCurrentActive }, ref) {
       ...prevState,
       [name]: { ...prevState[name], value, errorMsg },
     }));
+    setPrevEnteredValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -79,12 +87,11 @@ const StepOne = forwardRef(function StepOne({ setCurrentActive }, ref) {
 
     if (isValid) {
       // 提交表單操作
-      console.log(
-        "提交的資料：",
-        Object.fromEntries(
-          Object.entries(formState).map(([key, { value }]) => [key, value])
-        )
+      const formData = Object.fromEntries(
+        Object.entries(formState).map(([key, { value }]) => [key, value])
       );
+      setStep1Contact(formData);
+      setPrevEnteredValue(formData);
       setCurrentActive((prev) => prev + 1);
     }
   };
@@ -99,7 +106,7 @@ const StepOne = forwardRef(function StepOne({ setCurrentActive }, ref) {
           id="name"
           label="Name"
           type="text"
-          value={formState.name.value}
+          value={prevEnteredValue.name || formState.name.value}
           onChange={handleInputChange}
           errorMsg={formState.name.errorMsg}
           placeholder="Kim Wang"
@@ -108,7 +115,7 @@ const StepOne = forwardRef(function StepOne({ setCurrentActive }, ref) {
           id="email"
           label="Email Address"
           type="email"
-          value={formState.email.value}
+          value={prevEnteredValue.email || formState.email.value}
           onChange={handleInputChange}
           errorMsg={formState.email.errorMsg}
           placeholder="kimwang@gmail.com"
@@ -117,7 +124,7 @@ const StepOne = forwardRef(function StepOne({ setCurrentActive }, ref) {
           id="phone"
           label="Phone Number"
           type="tel"
-          value={formState.phone.value}
+          value={prevEnteredValue.phone || formState.phone.value}
           onChange={handleInputChange}
           errorMsg={formState.phone.errorMsg}
           placeholder="0913xxxxxx"
