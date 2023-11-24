@@ -1,7 +1,7 @@
 import FormField from "@/components/formField";
 import { useState, forwardRef } from "react";
 
-const StepOne = forwardRef(function StepOne(props, ref) {
+const StepOne = forwardRef(function StepOne({ setCurrentActive }, ref) {
   const [formState, setFormState] = useState({
     name: {
       value: "",
@@ -85,6 +85,7 @@ const StepOne = forwardRef(function StepOne(props, ref) {
           Object.entries(formState).map(([key, { value }]) => [key, value])
         )
       );
+      setCurrentActive((prev) => prev + 1);
     }
   };
   return (

@@ -1,3 +1,4 @@
+import classNames from "classnames";
 const StepTwo = () => {
   const cards = [
     { option: "Easy", amount: 9 },
